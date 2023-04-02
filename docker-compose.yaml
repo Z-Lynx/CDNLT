@@ -1,0 +1,15 @@
+version: '3'
+services:
+  db:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: job_data
+      MYSQL_USER: jobuser
+      MYSQL_PASSWORD: jobpassword
+    ports:
+      - "3306:3306"
+    command: "--default-authentication-plugin=mysql_native_password"
+    volumes:
+      - ./init:/docker-entrypoint-initdb.d/:ro
