@@ -1,7 +1,6 @@
 import requests
-import scraper.utils as utils
+import utils as utils
 from bs4 import BeautifulSoup
-import re
 
 
 def processing_data(data):
@@ -24,4 +23,6 @@ def get_id_address():
 
 
 if __name__ == '__main__':
-    get_id_address()
+    # get_id_address()
+    # Debug
+    pass

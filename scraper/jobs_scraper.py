@@ -1,7 +1,5 @@
 import time
 
-import requests
-import scraper.utils as utils
 from scraper.address_scraper import *
 from bs4 import BeautifulSoup
 import re
@@ -60,4 +58,6 @@ def get_data():
 
 
 if __name__ == '__main__':
-    get_data()
+    # get_data()
+    # Debug
+    pass
