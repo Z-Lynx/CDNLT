@@ -20,3 +20,9 @@
   - User: jobuser
   - Password: jobpassword
   - Table: job_data
+
+## DOCKER 
+  -  docker kill $(docker ps -q) / STOP ALL 
+  -  docker rmi -f $(docker images -aq) / KILL ALL
+## Testing Api
+  -  http://34.170.190.29:8080/docs
