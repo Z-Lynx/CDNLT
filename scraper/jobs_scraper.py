@@ -1,5 +1,9 @@
-import time
+import sys
+import os
+scraper_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', ''))
+sys.path.append(scraper_path)
 
+import time
 from scraper.address_scraper import *
 from bs4 import BeautifulSoup
 import re
@@ -18,8 +22,7 @@ def next_page(referer):
             return soup.find(class_='pagination').find_all('a')[-1]['href']
         return None
     except Exception as e:
-        print(e)
-        print(referer)
+        return None
 
 
 def processing(referer):
@@ -51,8 +54,8 @@ def processing(referer):
 
 def get_data():
     list_id_country = get_id_address()
-    for country in tqdm(list_id_country[11:]):
-        print("[+] " + country.split("/")[-1].split('.')[0] )
+    for country in tqdm(list_id_country):
+        print("\n\n[+] " + country.split("/")[-1].split('.')[0])
         processing(country)
         time.sleep(2)
 

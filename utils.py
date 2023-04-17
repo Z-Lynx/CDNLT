@@ -22,3 +22,16 @@ def get_header(origin='https://careerbuilder.vn', referer=''):
         'x-requested-with': 'XMLHttpRequest'
     }
 
+
+
+JOB_ID = "JOB_ID"
+JOB_TITLE = "JOB_TITLE"
+JOB_ACTIVEDATE = "JOB_ACTIVEDATE"
+DATE_VIEW = "DATE_VIEW"
+EMP_NAME = "EMP_NAME"
+BENEFIT_NAME = "BENEFIT_NAME"
+LINK_JOB = "LINK_JOB"
+JOB_SALARY_STRING = "JOB_SALARY_STRING"
+LOCATION_NAME_ARR = "LOCATION_NAME_ARR"
+
+
