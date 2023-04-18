@@ -1,5 +1,9 @@
 <h2> project crawl careerbuilder </h2>
- 
+
+
+### AUTO API
+  - Turn on docker
+  - Run `Docker compose up -d` and using :D thank u
 ## how to use
 - ### Turn on Server MySQL
   - If u dont want to run crawl again, u can download if image in here : 
