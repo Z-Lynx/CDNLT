@@ -1,9 +1,10 @@
 <h2> project crawl careerbuilder </h2>
 
-
+###  Download source code : [here](https://github.com/LynnGG/CDNLT/releases/tag/v1.0.0)
 ### AUTO API
   - Turn on docker
   - Run `Docker compose up -d` and using :D thank u
+
 ## how to use
 - ### Turn on Server MySQL
   
