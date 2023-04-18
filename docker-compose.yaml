@@ -13,6 +13,9 @@ services:
     command: "--default-authentication-plugin=mysql_native_password"
     volumes:
       - ./init:/docker-entrypoint-initdb.d/:ro
+    networks:
+      vpcbr:
+        ipv4_address: 10.5.0.5
 
   app:
     build: .
@@ -20,3 +23,14 @@ services:
       - "8080:8080"
     depends_on:
       - db
+    networks:
+      vpcbr:
+        ipv4_address: 10.5.0.6
+
+networks:
+  vpcbr:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 10.5.0.0/16
+         gateway: 10.5.0.1
