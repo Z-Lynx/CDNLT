@@ -25,8 +25,9 @@ LOCALHOST = os.getenv('LOCALHOST')
 
 app = FastAPI()
 
-app.mount("/static", StaticFiles(directory="../templates/static"), name="static")
-templates = Jinja2Templates(directory="../templates")
+print(os.getcwd())
+app.mount("/static", StaticFiles(directory="./app/templates/static"), name="static")
+templates = Jinja2Templates(directory="./app/templates")
 
 
 @app.get("/", response_class=HTMLResponse)
