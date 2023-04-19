@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='bootstrap/css/bootstrap.min.css') }}">
+<body style="background-color: #644bff; margin: 150px auto;">
+<section class="ftco-section" style="color: white">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center mb-5">
+                <h1 class="heading-section">Kết Quả Tìm kiếm</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-wrap">
+                    <table class="table table-striped table-dark">
+                        <thead class="table table-dark" style="color: white">
+                        <tr>
+                            <th scope="col">JOB_ID</th>
+                            <th scope="col">JOB_TITLE</th>
+                            <th scope="col">JOB_ACTIVEDATE</th>
+                            <th scope="col">DATE_VIEW</th>
+                            <th scope="col">EMP_NAME</th>
+                            <th scope="col">BENEFIT_NAME</th>
+                            <th scope="col">LINK_JOB</th>
+                            <th scope="col">JOB_SALARY_STRING</th>
+                            <th scope="col">LOCATION_NAME_ARR</th>
+                        </tr>
+                        </thead>
+                        <tbody style="color: white;">
+                        {% for result in results %}
+                        <tr>
+                            <td>{{ result[0] }}</td>
+                            <td>{{ result[1] }}</td>
+                            <td>{{ result[2] }}</td>
+                            <td>{{ result[3] }}</td>
+                            <td>{{ result[4] }}</td>
+                            <td>{{ result[5] }}</td>
+                            <td><a href={{ result[6] }} style="color: white; font-weight: bold;">Link Jobs</a></td>
+                            <td>{{ result[7] }}</td>
+                            <td>{{ result[8] }}</td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="{{ url_for('static', path='bootstrap/js/bootstrap.js') }}"></script>
+<script defer=""
+        src="https://static.cloudflareinsights.com/beacon.min.js/v52afc6f149f6479b8c77fa569edb01181681764108816"
+        integrity="sha512-jGCTpDpBAYDGNYR5ztKt4BQPGef1P0giN6ZGVUi835kFF88FOmmn8jBQWNgrNd8g/Yu421NdgWhwQoaOPFflDw=="
+        data-cf-beacon="{&quot;rayId&quot;:&quot;7ba6b5a54c871faf&quot;,&quot;token&quot;:&quot;cd0b4b3a733644fc843ef0b185f98241&quot;,&quot;version&quot;:&quot;2023.3.0&quot;,&quot;si&quot;:100}"
+        crossorigin="anonymous"></script>
+
+
+<div id="rememberry__extension__root" style="all: unset;"></div>
+</body>
+</html>

@@ -1,14 +1,19 @@
 import os
 import sys
 
+from starlette.staticfiles import StaticFiles
+
 # add the directory containing the scraper module to the Python path
 scraper_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', ''))
 sys.path.append(scraper_path)
 
-from fastapi import FastAPI
 from database.process_data import *
 from scraper.jobs_scraper import get_data
 from utils import *
+from fastapi import FastAPI, Request, Form
+from fastapi.templating import Jinja2Templates
+from fastapi.responses import HTMLResponse
+
 # Load environment variables from .env file
 load_dotenv()
 # Access environment variables
@@ -19,6 +24,91 @@ TABLE = os.getenv('TABLE')
 LOCALHOST = os.getenv('LOCALHOST')
 
 app = FastAPI()
+
+app.mount("/static", StaticFiles(directory="../templates/static"), name="static")
+templates = Jinja2Templates(directory="../templates")
+
+
+@app.get("/", response_class=HTMLResponse)
+async def read_index(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
+
+
+@app.get("/title", response_class=HTMLResponse)
+async def read_title(request: Request):
+    return templates.TemplateResponse("title.html")
+
+
+@app.post("/title", response_class=HTMLResponse)
+async def do_search(request: Request, title: str = Form(...)):
+    try:
+        # connect to the database
+        conn = mysql.connector.connect(
+            host=LOCALHOST,
+            user=USER,
+            password=PASSWORD,
+            database=DATABASE
+        )
+
+        # create a cursor object
+        cursor = conn.cursor()
+
+        # define the search query
+        query = f"SELECT * FROM {TABLE} WHERE {JOB_TITLE} LIKE '%{title}%'"
+
+        # execute the query
+        cursor.execute(query)
+
+        # get the results
+        results = cursor.fetchall()
+        # extract the titles from the results
+        titles = [result for result in results]
+
+        # close the database connection
+        cursor.close()
+        conn.close()
+        return templates.TemplateResponse("title.html", {'request': request, "results": titles})
+
+    except Exception as e:
+        print(e)
+        return templates.TemplateResponse("title.html", {'request': request, "results": []})
+
+
+@app.get("/suggest")
+async def suggest(title: str):
+    try:
+        print(title)
+        # connect to the database
+        conn = mysql.connector.connect(
+            host=LOCALHOST,
+            user=USER,
+            password=PASSWORD,
+            database=DATABASE
+        )
+
+        # create a cursor object
+        cursor = conn.cursor()
+
+        # define the search query
+        query = f"SELECT * FROM {TABLE} WHERE {JOB_TITLE} LIKE '%{title}%'"
+
+        # execute the query
+        cursor.execute(query)
+
+        # get the results
+        results = cursor.fetchall()
+
+        # extract the titles from the results
+        titles = [result[1] for result in results]
+
+        # close the database connection
+        cursor.close()
+        conn.close()
+
+        return {"suggestions": titles}
+    except Exception as e:
+        print(e)
+        return {"suggestions": []}
 
 
 @app.get('/search_jobs_title/')

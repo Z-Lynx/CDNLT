@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Search Box</title>
+	<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="{{ url_for('static', path='style.css') }}">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+</head>
+<body>
+<div class="wrapper">
+	<h1>Tìm công việc</h1>
+	<form id="search-form" action="/title" , method="POST">
+		<div class="search-input">
+			<a href="" target="_blank" hidden></a>
+			<input id="search-input" name="title" placeholder="Type to search..">
+			<div class="autocom-box">
+				<!-- here list are inserted from javascript -->
+			</div>
+			<div class="icon"><i class="fas fa-search"></i></div>
+		</div>
+	</form>
+</div>
+<script>
+	$('.icon').on('click', function () {
+    $('#search-form').submit();
+});
+</script>
+<script>
+	// Khi người dùng nhập từ khóa vào ô tìm kiếm
+	$('#search-input').on('input', function () {
+		var title = $(this).val();
+		if (title) {
+			// Thiết lập một độ trễ 500ms trước khi gửi yêu cầu tìm kiếm
+			setTimeout(function () {
+				// Gửi yêu cầu tìm kiếm đến API và hiển thị kết quả trả về
+				$.ajax({
+					url: '/suggest',
+					type: 'GET',
+					data: {title: title},
+					success: function (response) {
+						var suggestions = response['suggestions'];
+						var html = '';
+						for (var i = 0; i < suggestions.length && i < 10; i++) {
+							html += '<li class="suggestion-item">' + suggestions[i] + '</li>';
+						}
+						$('.autocom-box').html(html);
+						document.querySelector(".search-input").classList.add("active");
+						// Gán sự kiện 'click' cho các phần tử .suggestion-item
+						$('.suggestion-item').on('click', function () {
+							// Lấy giá trị của suggestion item
+							const suggestionValue = $(this).text();
+
+							// Thay đổi giá trị của ô input
+							$('#search-input').val(suggestionValue);
+
+							// Tự động submit form
+							$('#search-form').submit();
+						});
+
+					}
+				});
+			}, 500);
+			// Thiết lập độ trễ 500ms
+		} else {
+			$('#suggestions').empty();
+		}
+
+	});
+</script>
+
+</body>
+</html>
