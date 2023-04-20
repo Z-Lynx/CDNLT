@@ -14,6 +14,13 @@ from fastapi import FastAPI, Request, Form
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
 
+if os.environ.get('DOCKER_CONTAINER'):
+    LOCALHOST = os.getenv('LOCALHOSTDOCKER')
+    TEMPLATES = os.getenv('TEMPLATESDOCKER')
+else:
+    LOCALHOST = os.getenv('LOCALHOST')
+    TEMPLATES = os.getenv('TEMPLATES')
+
 # Load environment variables from .env file
 load_dotenv()
 # Access environment variables
@@ -21,12 +28,12 @@ DATABASE = os.getenv('DATABASE')
 USER = os.getenv('USER')
 PASSWORD = os.getenv('PASSWORD')
 TABLE = os.getenv('TABLE')
-LOCALHOST = os.getenv('LOCALHOST')
 
 app = FastAPI()
 
-app.mount("/static", StaticFiles(directory="./app/api/templates/static"), name="static")
-templates = Jinja2Templates(directory="./app/api/templates")
+print(f"{TEMPLATES}/static")
+app.mount("/static", StaticFiles(directory=f"{TEMPLATES}/static"), name="static")
+templates = Jinja2Templates(directory=TEMPLATES)
 
 
 @app.get("/", response_class=HTMLResponse)

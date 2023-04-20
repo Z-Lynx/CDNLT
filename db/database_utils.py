@@ -11,7 +11,11 @@ DATABASE = os.getenv('DATABASE')
 USER = os.getenv('USER')
 PASSWORD = os.getenv('PASSWORD')
 TABLE = os.getenv('TABLE')
-LOCALHOST = os.getenv('LOCALHOST')
+
+if os.environ.get('DOCKER_CONTAINER'):
+    LOCALHOST = os.getenv('LOCALHOSTDOCKER')
+else:
+    LOCALHOST = os.getenv('LOCALHOST')
 
 JOBS = JOB_ID + ", " + JOB_TITLE + ", " + JOB_ACTIVEDATE + ", " + DATE_VIEW + ", " + EMP_NAME + ", " + BENEFIT_NAME + ", " + LINK_JOB + ", " + JOB_SALARY_STRING + ", " + LOCATION_NAME_ARR
 
@@ -151,7 +155,6 @@ def remove_job_by_id(job_id):
     except mysql.connector.Error as error:
         print("Failed to insert record into MySQL table: {}".format(error))
         return False
-
 
 
 if __name__ == '__main__':
