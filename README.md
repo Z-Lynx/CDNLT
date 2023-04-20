@@ -30,3 +30,7 @@
 ## Testing Api
   -  http://34.170.190.29:8080/docs
   -  http://34.170.190.29:8080/
+
+## License
+
+The content of this project is licensed under the terms of the [MIT license](LICENSE).
