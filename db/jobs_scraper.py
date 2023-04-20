@@ -4,11 +4,11 @@ scraper_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '')
 sys.path.append(scraper_path)
 
 import time
-from scraper.address_scraper import *
+from db.address_scraper import *
 from bs4 import BeautifulSoup
 import re
 import json
-from database.process_data import insert_data
+from db.database_utils import insert_data
 from tqdm import tqdm
 
 

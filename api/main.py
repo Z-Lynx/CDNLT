@@ -3,13 +3,13 @@ import sys
 
 from starlette.staticfiles import StaticFiles
 
-# add the directory containing the scraper module to the Python path
+# add the directory containing the db module to the Python path
 scraper_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', ''))
 sys.path.append(scraper_path)
 
-from database.process_data import *
-from scraper.jobs_scraper import get_data
-from utils import *
+from db.database_utils import *
+from db.jobs_scraper import get_data
+from helpper.utils import *
 from fastapi import FastAPI, Request, Form
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
@@ -25,9 +25,8 @@ LOCALHOST = os.getenv('LOCALHOST')
 
 app = FastAPI()
 
-print(os.getcwd())
-app.mount("/static", StaticFiles(directory="./app/templates/static"), name="static")
-templates = Jinja2Templates(directory="./app/templates")
+app.mount("/static", StaticFiles(directory="./app/api/templates/static"), name="static")
+templates = Jinja2Templates(directory="./app/api/templates")
 
 
 @app.get("/", response_class=HTMLResponse)

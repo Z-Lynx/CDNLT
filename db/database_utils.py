@@ -1,7 +1,7 @@
 import os
 import mysql.connector
 from dotenv import load_dotenv
-from utils import *
+from helpper.utils import *
 
 # Load environment variables from .env file
 load_dotenv()

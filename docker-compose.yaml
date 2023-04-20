@@ -1,7 +1,9 @@
 version: '3'
 services:
   db:
-    image: mysql:latest
+    build:
+      context: .
+      dockerfile: ./db/Dockerfile
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
@@ -10,17 +12,16 @@ services:
       MYSQL_PASSWORD: jobpassword
     ports:
       - "3306:3306"
-    command: "--default-authentication-plugin=mysql_native_password"
-    volumes:
-      - ./init:/docker-entrypoint-initdb.d/:ro
     networks:
       vpcbr:
         ipv4_address: 10.5.0.5
 
   app:
-    build: .
+    build:
+      context: .
+      dockerfile: ./api/Dockerfile
     ports:
-      - "8080:8080"
+      - "8585:8585"
     depends_on:
       - db
     networks:
