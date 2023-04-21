@@ -28,8 +28,8 @@
   -  `docker kill $(docker ps -q)` / STOP ALL 
   -  `docker rmi -f $(docker images -aq)` / KILL ALL
 ## Testing Api
-  -  http://34.170.190.29:8080/docs
-  -  http://34.170.190.29:8080/
+  -  http://34.170.190.29:8585/docs
+  -  http://34.170.190.29:8585/
 
 ## License
 
