@@ -85,13 +85,23 @@ async def do_search(request: Request, title: str = Form(...)):
         # get the results
         results = cursor.fetchall()
 
-        # extract the titles from the results
-        titles = [result for result in results]
+        # Get column names
+        columns = [desc[0] for desc in cursor.description]
+
+        # Fetch all rows and convert to dictionary
+        rows = cursor.fetchall()
+
+        dict_rows = []
+        for row in rows:
+            dict_row = {}
+            for i, column in enumerate(columns):
+                dict_row[column] = row[i]
+            dict_rows.append(dict_row)
 
         # close the database connection
         cursor.close()
         conn.close()
-        return templates.TemplateResponse("title.html", {'request': request, "results": titles})
+        return templates.TemplateResponse("title.html", {'request': request, "results": dict_rows})
 
     except Exception as e:
         print(e)
