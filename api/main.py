@@ -14,7 +14,7 @@ from fastapi import FastAPI, Request, Form
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
 
-if os.environ.get('DOCKER_CONTAINER'):
+if os.environ.get('DOCKER_CONTAINER') == "true":
     LOCALHOST = os.getenv('LOCALHOSTDOCKER')
     TEMPLATES = os.getenv('TEMPLATESDOCKER')
 else:
@@ -68,6 +68,7 @@ async def do_search(request: Request, title: str = Form(...)):
 
         # get the results
         results = cursor.fetchall()
+
         # extract the titles from the results
         titles = [result for result in results]
 

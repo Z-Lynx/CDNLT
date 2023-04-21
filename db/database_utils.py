@@ -12,7 +12,7 @@ USER = os.getenv('USER')
 PASSWORD = os.getenv('PASSWORD')
 TABLE = os.getenv('TABLE')
 
-if os.environ.get('DOCKER_CONTAINER'):
+if os.environ.get('DOCKER_CONTAINER') == "true":
     LOCALHOST = os.getenv('LOCALHOSTDOCKER')
 else:
     LOCALHOST = os.getenv('LOCALHOST')
