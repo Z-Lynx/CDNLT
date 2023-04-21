@@ -13,6 +13,7 @@ from helpper.utils import *
 from fastapi import FastAPI, Request, Form
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
+from fastapi.middleware.cors import CORSMiddleware
 
 if os.environ.get('DOCKER_CONTAINER') == "true":
     LOCALHOST = os.getenv('LOCALHOSTDOCKER')
@@ -30,6 +31,14 @@ PASSWORD = os.getenv('PASSWORD')
 TABLE = os.getenv('TABLE')
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=['*'],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 app.mount("/static", StaticFiles(directory=f"{TEMPLATES}/static"), name="static")
 templates = Jinja2Templates(directory=TEMPLATES)
