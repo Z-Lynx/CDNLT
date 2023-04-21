@@ -55,12 +55,15 @@ def processing(referer):
 def get_data():
     list_id_country = get_id_address()
     for country in tqdm(list_id_country):
-        print("\n\n[+] " + country.split("/")[-1].split('.')[0])
-        processing(country)
-        time.sleep(2)
+        try:
+            print("\n\n[+] " + country.split("/")[-1].split('.')[0])
+            processing(country)
+            time.sleep(2)
+        except Exception as e:
+            print("\n\n[+] Máy Chủ " + country.split("/")[-1].split('.')[0] + " Sập !!")
 
 
 if __name__ == '__main__':
-    # get_data()
+    get_data()
     # Debug
     pass

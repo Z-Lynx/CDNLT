@@ -68,7 +68,6 @@ def insert_data(data):
         val = (data[JOB_ID], data[JOB_TITLE], data[JOB_ACTIVEDATE], data[DATE_VIEW], data[EMP_NAME],
                ','.join(data[BENEFIT_NAME]), data[LINK_JOB], data[JOB_SALARY_STRING],
                ','.join(data[LOCATION_NAME_ARR]))
-        print("2")
         cursor.execute(sql, val)
         # Commit the changes to the database
         conn.commit()
@@ -135,7 +134,6 @@ def remove_job_by_id(job_id):
 
         # create a cursor object
         cursor = conn.cursor()
-        print(check_job_id_exist(job_id))
         if not check_job_id_exist(job_id):
             return False
         # prepare the SQL query

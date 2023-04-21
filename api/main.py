@@ -31,7 +31,6 @@ TABLE = os.getenv('TABLE')
 
 app = FastAPI()
 
-print(f"{TEMPLATES}/static")
 app.mount("/static", StaticFiles(directory=f"{TEMPLATES}/static"), name="static")
 templates = Jinja2Templates(directory=TEMPLATES)
 
