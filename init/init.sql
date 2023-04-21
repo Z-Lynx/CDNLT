@@ -1,5 +1,10 @@
 USE job_data;
 
+CREATE TABLE user (
+    user VARCHAR(255) PRIMARY KEY ,
+    password VARCHAR(255)
+);
+
 CREATE TABLE job_data (
   JOB_ID VARCHAR(255),
   JOB_TITLE VARCHAR(255),

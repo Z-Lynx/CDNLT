@@ -15,11 +15,11 @@
       <jdbc-url>jdbc:mysql://localhost:3306/job_data</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="tung_api@localhost" uuid="ff8b168d-d485-4048-888c-278034736257">
+    <data-source source="LOCAL" name="job_data@localhost [3]" uuid="a191bc5a-1f71-4d7e-a62e-db77ee279edd">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/tung_api</jdbc-url>
+      <jdbc-url>jdbc:mysql://localhost:3306/job_data</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>

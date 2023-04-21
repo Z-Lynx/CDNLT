@@ -39,6 +39,14 @@ templates = Jinja2Templates(directory=TEMPLATES)
 async def read_index(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
+@app.post('/login')
+async def login(user, pwd):
+    try:
+        if(check_user(user, pwd)):
+            return {"status": 200, "messege": "success"}
+        return {"status": 400, "messege": "error"}
+    except Exception as e:
+        return {"status": 200, "messege": e}
 
 @app.get("/title", response_class=HTMLResponse)
 async def read_title(request: Request):

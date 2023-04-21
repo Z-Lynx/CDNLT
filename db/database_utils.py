@@ -155,6 +155,44 @@ def remove_job_by_id(job_id):
         return False
 
 
+def check_user(username, password):
+    try:
+        # Connect to the database
+        conn = mysql.connector.connect(
+            host=LOCALHOST,
+            user=USER,
+            password=PASSWORD,
+            database=DATABASE
+        )
+
+        # Create a cursor object
+        cursor = conn.cursor()
+
+        # Prepare the SQL query to check for user and password
+        sql_query = "SELECT * FROM Member WHERE user = %s AND pwd = %s"
+
+        # Execute the SQL query with the username and password parameters
+        cursor.execute(sql_query, (username, password))
+
+        # Fetch the first row from the result set
+        row = cursor.fetchone()
+
+        # Close the cursor and connection
+        cursor.close()
+        conn.close()
+
+        # If the row exists, return True
+        if row:
+            return True
+
+        # If the row doesn't exist, return False
+        return False
+
+    except mysql.connector.Error as error:
+        print("Failed to query MySQL database: {}".format(error))
+        return False
+
+
 if __name__ == '__main__':
     # debug
     pass
